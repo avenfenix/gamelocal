@@ -2,6 +2,9 @@
 sudo apt update
 sudo apt install -y golang
 
+rm gamelocal-client
+rm gamelocal-server
+
 # Compilar
 go build -o gamelocal-client client.go
 go build -o gamelocal-server server.go
