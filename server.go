@@ -1,7 +1,3 @@
-// Parte que sirve los archivos de juegos. Es la "base de datos" en linea (local)
-// La parte cliente le envia los archivos de juego actualizados
-//
-
 package main
 
 import (

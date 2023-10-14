@@ -2,6 +2,7 @@
 sudo apt update
 sudo apt install -y golang
 
+# Remover compilacion anterior
 rm gamelocal-client
 rm gamelocal-server
 
