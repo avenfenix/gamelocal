@@ -1,36 +1,22 @@
+// Parte que sirve los archivos de juegos. Es la "base de datos" en linea (local)
+// La parte cliente le envia los archivos de juego actualizados
+//
+
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
-type PartidaGuardada struct {
-	Juego  string `json:"juego"`
-	Estado string `json:"estado"`
-}
-
-var partidasGuardadas []PartidaGuardada
-
 func main() {
-	http.HandleFunc("/guardar-partida", func(w http.ResponseWriter, r *http.Request) {
-		var partida PartidaGuardada
-		err := json.NewDecoder(r.Body).Decode(&partida)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
-			return
-		}
-
-		partidasGuardadas = append(partidasGuardadas, partida)
-		fmt.Println("Partida guardada:", partida.Juego)
-
-		w.WriteHeader(http.StatusCreated)
+	fmt.Println("GameLocal version 0.0.1")
+	r := gin.Default()
+	r.GET("/ping", func(ctx *gin.Context) {
+		ctx.JSON(200, gin.H{
+			"message": "pong",
+		})
 	})
-
-	http.HandleFunc("/partidas-guardadas", func(w http.ResponseWriter, r *http.Request) {
-		json.NewEncoder(w).Encode(partidasGuardadas)
-	})
-
-	http.ListenAndServe(":8080", nil)
+	r.Run()
 }
